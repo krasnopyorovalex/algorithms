@@ -14,7 +14,11 @@
         }
     ],
     "require": {
-        "php": "^8.5"
+        "php": "^8.5",
+        "ext-redis": "*",
+        "monolog/monolog": "^3.9",
+        "psr/log": "^3.0",
+        "ramsey/uuid": "^4.9"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.3.2",

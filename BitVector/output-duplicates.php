@@ -20,6 +20,6 @@ function outputDuplicates(array $numbers): void
     }
 }
 
-$numbers = [2, 4, 11, 44, 5, 8, 9, 5, 11, 4];
+$numbers = [2, 4, 11, 44, 5, 8, 9, 5, 11, 4, 9, 1, 13, 100, 120, 120];
 
 outputDuplicates($numbers);
