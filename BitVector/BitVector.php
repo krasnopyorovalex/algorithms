@@ -15,11 +15,12 @@ final class BitVector
 
     public function __construct(int $bits)
     {
+        $this->maxIndex = $bits - 1;
+
         $shift = log(PHP_INT_SIZE * 8, 2);
-        $size = (($bits - 1) >> $shift) + 1;
+        $size = (($this->maxIndex) >> $shift) + 1;
 
         $this->vector = new SplFixedArray($size);
-        $this->maxIndex = $bits - 1;
     }
 
     public function setBit(int $index): void
@@ -72,12 +73,12 @@ final class BitVector
         return $bit !== 0;
     }
 
-    private function getRow(int $index): int
+    public function getRow(int $index): int
     {
         return $index >> log(PHP_INT_SIZE * 8, 2);
     }
 
-    private function getCol(int $index): int
+    public function getCol(int $index): int
     {
         return $index % (PHP_INT_SIZE * 8);
     }
