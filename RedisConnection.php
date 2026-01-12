@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\DistributedLock\Redis;
+namespace Src;
 
 use Redis;
 
@@ -10,7 +10,7 @@ final class RedisConnection
 {
     private static Redis $connection;
 
-    public static function connection(): Redis
+    public static function connect(): Redis
     {
         if (!isset(self::$connection)) {
             self::$connection = new Redis([
