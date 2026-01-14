@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Src\RateLimiter\Redis;
 
-use Redis;
 use Src\RateLimiter\RateLimiter;
+use Src\RedisConnection;
 
 final readonly class RedisFixedWindowRateLimiter implements RateLimiter
 {
-    public function __construct(private Redis $redis)
+    public function __construct(private RedisConnection $redis)
     {
 
     }
@@ -17,10 +17,10 @@ final readonly class RedisFixedWindowRateLimiter implements RateLimiter
     {
         $key = sprintf('rate:%s', $clientId);
 
-        $countHits = $this->redis->incr($key);
+        $countHits = $this->redis->getConnection()->incr($key);
 
         if ($countHits === 1) {
-            $this->redis->setex($key, $windowSize, $countHits);
+            $this->redis->getConnection()->setex($key, $windowSize, $countHits);
         }
 
         return $countHits <= $limit;

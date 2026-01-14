@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Src\DistributedLock\Redis;
 
 use Ramsey\Uuid\Uuid;
-use Redis;
 use Src\DistributedLock\DistributedLock;
+use Src\RedisConnection;
 
 final readonly class RedisDistributedLock implements DistributedLock
 {
-    public function __construct(private Redis $redis)
+    public function __construct(private RedisConnection $redis)
     {
     }
 
@@ -18,7 +18,7 @@ final readonly class RedisDistributedLock implements DistributedLock
     {
         $lockId = Uuid::uuid7()->toString();
 
-        (bool) $isLocked = $this->redis->set($lockKey, $lockId, ["NX", "EX" => $ttl]);
+        (bool) $isLocked = $this->redis->getConnection()->set($lockKey, $lockId, ["NX", "EX" => $ttl]);
 
         if ($isLocked) {
             return $lockId;
@@ -35,6 +35,6 @@ final readonly class RedisDistributedLock implements DistributedLock
             else return 0 end
         LUA;
 
-        return $this->redis->eval($luaCommand, [$lockKey, $lockId], 1);
+        return $this->redis->getConnection()->eval($luaCommand, [$lockKey, $lockId], 1);
     }
 }

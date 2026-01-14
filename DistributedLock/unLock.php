@@ -7,23 +7,31 @@ use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Src\DistributedLock\Redis\RedisDistributedLock;
 use Src\DistributedLock\Redis\RedisLockPrefix;
-use Src\RedisConnection;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-require __DIR__ . '/../vendor/autoload.php';
-
-$logHandler = new StreamHandler(STDOUT);
-$logHandler->pushProcessor(new PsrLogMessageProcessor());
-$logger = new Logger('redis.dl', [$logHandler]);
-$redisDistributedLock = new RedisDistributedLock(RedisConnection::connect());
+/** @var ContainerBuilder $container */
+require __DIR__ . '/../index.php';
 
 $key = $argv[1] ?? false;
 $lockId = $argv[2] ?? false;
 
-if ($key && $lockId) {
-    $result = $redisDistributedLock->unLock(
-        lockKey: new RedisLockPrefix($key)->getKeyWithPrefix(),
-        lockId: $lockId
-    );
+$logHandler = new StreamHandler(STDOUT);
+$logHandler->pushProcessor(new PsrLogMessageProcessor());
+$logger = new Logger('redis.dl', [$logHandler]);
 
-    $logger->info((string) $result);
+try {
+    $redisDistributedLock = new RedisDistributedLock($container->get('redis.connection'));
+
+    if ($key && $lockId) {
+        $result = $redisDistributedLock->unLock(
+            lockKey: new RedisLockPrefix($key)->getKeyWithPrefix(),
+            lockId: $lockId
+        );
+
+        $logger->info((string) $result);
+    }
+} catch (\Throwable $th) {
+    $logger->error($th->getMessage(), [
+        'exception' => $th
+    ]);
 }

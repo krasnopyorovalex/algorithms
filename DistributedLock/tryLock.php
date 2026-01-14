@@ -7,19 +7,21 @@ use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Src\DistributedLock\Redis\RedisDistributedLock;
 use Src\DistributedLock\Redis\RedisLockPrefix;
-use Src\RedisConnection;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-require __DIR__ . '/../vendor/autoload.php';
-
-$logHandler = new StreamHandler(STDOUT);
-$logHandler->pushProcessor(new PsrLogMessageProcessor());
-$logger = new Logger('redis.dl', [$logHandler]);
-$redisDistributedLock = new RedisDistributedLock(RedisConnection::connect());
+/** @var ContainerBuilder $container */
+require __DIR__ . '/../index.php';
 
 $key = $argv[1] ?? 'test';
 $ttl = $argv[2] ?? 600;
 
+$logHandler = new StreamHandler(STDOUT);
+$logHandler->pushProcessor(new PsrLogMessageProcessor());
+$logger = new Logger('redis.dl', [$logHandler]);
+
 try {
+    $redisDistributedLock = new RedisDistributedLock($container->get('redis.connection'));
+
     $lockKey = new RedisLockPrefix($key)->getKeyWithPrefix();
     $lockId = $redisDistributedLock->tryLock($lockKey, (int) $ttl);
 
