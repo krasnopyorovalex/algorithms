@@ -6,6 +6,10 @@ use Src\BitVector\BitVector;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+/**
+ * @param non-empty-array<int, int> $numbers
+ * @return void
+ */
 function outputDuplicates(array $numbers): void
 {
     $bitVector = new BitVector(121);

@@ -2,7 +2,7 @@
     "name": "krasnopyorovalex/algorithms",
     "description": "...",
     "keywords": [
-        "rabbit"
+        "algorithms"
     ],
     "homepage": "https://github.com/krasnopyorovalex/algorithms",
     "license": "MIT",
@@ -22,6 +22,7 @@
         "symfony/dependency-injection": "^8.0"
     },
     "require-dev": {
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^10.3.2",
         "roave/security-advisories": "dev-latest"
     },
@@ -39,7 +40,7 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage",
-        "format": "vendor/bin/pint"
+        "analyze": "vendor/bin/phpstan analyze"
     },
     "config": {
         "sort-packages": true,

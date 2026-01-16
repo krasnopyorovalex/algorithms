@@ -10,9 +10,8 @@ use Src\RedisConnection;
 final readonly class RedisFixedWindowRateLimiter implements RateLimiter
 {
     public function __construct(private RedisConnection $redis)
-    {
+    {}
 
-    }
     public function allow(string $clientId, int $limit, int $windowSize): bool
     {
         $key = sprintf('rate:%s', $clientId);

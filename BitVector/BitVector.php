@@ -11,6 +11,9 @@ final class BitVector
 {
     private int $maxIndex;
 
+    /**
+     * @var SplFixedArray<int>
+     */
     private SplFixedArray $vector;
 
     public function __construct(int $bits)
