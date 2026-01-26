@@ -23,5 +23,3 @@ function getMaxArea(array $array): int
 
     return $max;
 }
-
-echo getMaxArea([2, 6, 7, 3, 5, 7, 4]), PHP_EOL;

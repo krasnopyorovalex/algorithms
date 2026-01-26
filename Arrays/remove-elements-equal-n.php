@@ -25,7 +25,3 @@ function removeElementsEqualN(array $list, int $n): int
 
     return $l;
 }
-
-$list = [1, 3, 5, 5, 5, 7, 5, 8, 7];
-
-echo removeElementsEqualN($list, 5), PHP_EOL;

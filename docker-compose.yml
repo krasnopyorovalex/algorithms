@@ -8,6 +8,7 @@ services:
       - ./:/app
     environment:
       PUID: 1000
+      XDEBUG_MODE: coverage
 
   redis:
     image: redis:8.4.0-alpine3.22

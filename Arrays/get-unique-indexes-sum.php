@@ -32,7 +32,3 @@ function getUniqueIndexesSum(array $list, int $n): array
 
     return $result;
 }
-
-print_r(
-    getUniqueIndexesSum([2, 6, 7, 3, 5, 7, 4], 11)
-);
