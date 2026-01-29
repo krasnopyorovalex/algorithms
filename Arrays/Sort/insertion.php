@@ -22,11 +22,3 @@ function insertionSort(array $arr): array
 
     return $arr;
 }
-
-$arr = [2, 100, 0, -9, 55, 80, 6];
-
-print_r(
-    insertionSort($arr)
-);
-
-
