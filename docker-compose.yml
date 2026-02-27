@@ -2,6 +2,8 @@ services:
   php-cli:
     tty: true
     stdin_open: true
+    depends_on:
+      - redis
     build:
       context: .
     volumes:

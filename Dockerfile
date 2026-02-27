@@ -1,4 +1,4 @@
-FROM php:8.5.0-cli-alpine3.23
+FROM php:8.5.2-cli-alpine3.23
 
 RUN set -eux; \
     apk add --no-cache --virtual .build-deps \
