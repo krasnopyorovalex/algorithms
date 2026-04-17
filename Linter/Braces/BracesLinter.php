@@ -39,7 +39,7 @@ final readonly class BracesLinter implements Linter
             }
 
             $popBrace = $this->stack->pop();
-            if (!$brace->isValidClose(self::BRACES_MAP, $popBrace)) {
+            if (!$brace->isValidClose(self::BRACES_MAP[$popBrace])) {
                 return false;
             }
         }

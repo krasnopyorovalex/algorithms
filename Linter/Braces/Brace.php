@@ -13,8 +13,8 @@ final readonly class Brace
         return array_key_exists($this->char, $bracesMap);
     }
 
-    public function isValidClose(array $bracesMap, string $char): bool
+    public function isValidClose(string $char): bool
     {
-        return $bracesMap[$char] === $this->char;
+        return $char === $this->char;
     }
 }
