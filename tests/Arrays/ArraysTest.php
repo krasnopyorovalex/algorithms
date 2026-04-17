@@ -13,8 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArraysTest extends TestCase
 {
-    /** @test */
-    public function is_unique_indexes_sum(): void
+    public function test_is_unique_indexes_sum(): void
     {
         $this->assertEquals(
             [[2,6]],
@@ -22,8 +21,7 @@ class ArraysTest extends TestCase
         );
     }
 
-    /** @test */
-    public function remove_unique_indexes_sum(): void
+    public function test_remove_unique_indexes_sum(): void
     {
         $this->assertEquals(
             5,
@@ -31,8 +29,7 @@ class ArraysTest extends TestCase
         );
     }
 
-    /** @test */
-    public function get_max_area(): void
+    public function test_get_max_area(): void
     {
         $this->assertEquals(
             24,
@@ -40,8 +37,7 @@ class ArraysTest extends TestCase
         );
     }
 
-    /** @test */
-    public function find_max_sequence_of_units(): void
+    public function test_find_max_sequence_of_units(): void
     {
         $this->assertEquals(
             5,

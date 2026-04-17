@@ -6,15 +6,13 @@ namespace Src\Tests\Arrays\Sort;
 
 require __DIR__ . '/../../../Arrays/Sort/insertion.php';
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SortTest extends TestCase
 {
-    /**
-     * @dataProvider additionProvider
-     * @test
-     */
-    public function insertion(array $expected, array $in): void
+    #[DataProvider('additionProvider')]
+    public function test_insertion(array $expected, array $in): void
     {
         $this->assertEquals($expected, insertionSort($in));
     }
