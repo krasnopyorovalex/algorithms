@@ -33,7 +33,7 @@ class BracesLinterTest extends TestCase
             [false, '{[()]}{'],
             [false, '{'],
             [false, ']'],
-            [false, ''],
+            [true, ''],
             [false, '({())})'],
         ];
     }

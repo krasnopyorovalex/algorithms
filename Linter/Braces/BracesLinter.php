@@ -23,7 +23,7 @@ final readonly class BracesLinter implements Linter
     public function check(string $braces): bool
     {
         if (!$length = strlen($braces)) {
-            return false;
+            return true;
         }
 
         for ($i = 0; $i < $length; $i++) {
