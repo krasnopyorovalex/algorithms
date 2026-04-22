@@ -6,21 +6,21 @@ namespace Src\Linter\Braces;
 
 final readonly class Brace
 {
+    private const array BRACES_MAP = [
+        '{' => '}',
+        '[' => ']',
+        '(' => ')'
+    ];
+
     public function __construct(private(set) string $char) {}
 
-    /**
-     * @param array<int, string> $bracesMap
-     */
-    public function isOpen(array $bracesMap): bool
+    public function isOpen(): bool
     {
-        return array_key_exists($this->char, $bracesMap);
+        return array_key_exists($this->char, self::BRACES_MAP);
     }
 
-    /**
-     * @param string<non-empty-string> $char
-     */
-    public function isValidClose(string $char): bool
+    public function isValidOpenFor(self $brace): bool
     {
-        return $char === $this->char;
+        return self::BRACES_MAP[$this->char] === $brace->char;
     }
 }

@@ -9,12 +9,6 @@ use Src\Linter\Linter;
 
 final readonly class BracesLinter implements Linter
 {
-    private const array BRACES_MAP = [
-        '{' => '}',
-        '[' => ']',
-        '(' => ')'
-    ];
-
     public function __construct(private SplStack $stack) {}
 
     /**
@@ -29,17 +23,18 @@ final readonly class BracesLinter implements Linter
         for ($i = 0; $i < $length; $i++) {
             $brace = new Brace($braces[$i]);
 
-            if (!$brace->isOpen(self::BRACES_MAP) && $this->stack->isEmpty()) {
+            if (!$brace->isOpen() && $this->stack->isEmpty()) {
                 return false;
             }
 
-            if ($brace->isOpen(self::BRACES_MAP)) {
-                $this->stack->push($brace->char);
+            if ($brace->isOpen()) {
+                $this->stack->push($brace);
                 continue;
             }
 
+            /** @var Brace $popBrace */
             $popBrace = $this->stack->pop();
-            if (!$brace->isValidClose(self::BRACES_MAP[$popBrace])) {
+            if (!$popBrace->isValidOpenFor($brace)) {
                 return false;
             }
         }
