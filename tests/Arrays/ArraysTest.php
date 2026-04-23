@@ -44,4 +44,12 @@ class ArraysTest extends TestCase
             findMaximumContinuousSequence([1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1])
         );
     }
+
+    public function test_if_count_of_sequence_less_then_zero(): void
+    {
+        $this->assertEquals(
+            0,
+            findMaximumContinuousSequence([])
+        );
+    }
 }

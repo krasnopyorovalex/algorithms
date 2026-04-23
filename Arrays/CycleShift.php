@@ -28,7 +28,3 @@ final class CycleShift
         return $array;
     }
 }
-
-$cycleShift = new CycleShift();
-
-print_r($cycleShift->shift([1,2,3,4,5], 4));
