@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Src\Linter\Braces\Brace;
+use Src\Linter\Braces\BraceTypes;
 
 #[Group('linter')]
 #[CoversClass(Brace::class)]
@@ -29,22 +30,22 @@ class BraceTest extends TestCase
     public static function charsProvider(): array
     {
         return [
-            [true, '{'],
-            [true, '['],
-            [true, '('],
-            [false, '}'],
-            [false, ']'],
-            [false, ')'],
+            [true,  BraceTypes::TYPE_1_OPEN->value],
+            [true,  BraceTypes::TYPE_2_OPEN->value],
+            [true,  BraceTypes::TYPE_3_OPEN->value],
+            [false, BraceTypes::TYPE_1_CLOSE->value],
+            [false, BraceTypes::TYPE_2_CLOSE->value],
+            [false, BraceTypes::TYPE_3_CLOSE->value],
         ];
     }
 
     public static function charsOpenClosedProvider(): array
     {
         return [
-            [true, '{', '}'],
-            [true, '[', ']'],
-            [false, '(', '}'],
-            [false, '[', '}'],
+            [true,  BraceTypes::TYPE_1_OPEN->value, BraceTypes::TYPE_1_CLOSE->value],
+            [true,  BraceTypes::TYPE_2_OPEN->value, BraceTypes::TYPE_2_CLOSE->value],
+            [false, BraceTypes::TYPE_1_OPEN->value, BraceTypes::TYPE_2_CLOSE->value],
+            [false, BraceTypes::TYPE_3_OPEN->value, BraceTypes::TYPE_1_CLOSE->value],
         ];
     }
 }
